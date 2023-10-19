@@ -1,9 +1,12 @@
 from pico2d import *
 
+from tree import BigTree
+
 Snow_WIDTH, Snow_HEIGHT = 800, 800
 open_canvas(Snow_WIDTH, Snow_HEIGHT)
 
 Snow = load_image('snowBG.png')
+start_p = load_image('start.png')
 
 def handle_events():
     global running
@@ -15,14 +18,30 @@ def handle_events():
             running = False
 
 running = True
+def reset_world():
+    global running
+    global bigtree
+    global world
+
+    running = True
+    world = []
+
+    bigtree = [BigTree() for i in range(10)]
+    world += bigtree
+
 def renderer_world():
     clear_canvas()
     Snow.draw(Snow_WIDTH // 2, Snow_HEIGHT // 2)
+    start_p.draw(Snow_WIDTH // 2 - 50, Snow_HEIGHT - 80, 80, 50)
+    for o in world:
+        o.draw()
     update_canvas()
 
 def update_world():
-    pass
+    for o in world:
+        o.update()
 
+reset_world()
 
 while running:
     handle_events()  # 사용자의 입력 받음
