@@ -1,6 +1,7 @@
 from pico2d import *
-
 from tree import BigTree
+from stone import Stone
+from man import Man
 
 Snow_WIDTH, Snow_HEIGHT = 800, 800
 open_canvas(Snow_WIDTH, Snow_HEIGHT)
@@ -10,24 +11,44 @@ start_p = load_image('start.png')
 
 def handle_events():
     global running
+
     events = get_events()
     for event in events:
-        if event.type == SDL_QUIT:
+        if event.type == SDL_QUIT or event.key == SDLK_ESCAPE:
             running = False
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            running = False
+        elif event.type == SDL_KEYDOWN:
+            if event.key == SDLK_RIGHT:
+                man.dir = 1
+            elif event.key == SDLK_LEFT:
+                man.dir = -1
+            elif event.key == SDLK_SPACE: #정ㅈ;ㅣ
+                man.dir = 0
+        elif event.type == SDL_KEYUP:
+            if event.key == SDLK_RIGHT and man.dir == 1:
+                man.dir = 3
+            elif event.key == SDLK_LEFT and man.dir == -1:
+                man.dir = 3
+
 
 running = True
 def reset_world():
     global running
     global bigtree
+    global stone
+    global man
     global world
-
+ 
     running = True
     world = []
 
     bigtree = [BigTree() for i in range(10)]
     world += bigtree
+
+    stone = [Stone() for i in range(2)]
+    world += stone
+
+    man=Man()
+    world.append(man)
 
 def renderer_world():
     clear_canvas()
