@@ -2,6 +2,7 @@ from pico2d import *
 from tree import BigTree
 from stone import Stone
 from man import Man
+from boardman import boardMan
 
 Snow_WIDTH, Snow_HEIGHT = 800, 800
 open_canvas(Snow_WIDTH, Snow_HEIGHT)
@@ -36,6 +37,7 @@ def reset_world():
     global bigtree
     global stone
     global man
+    global Bboy
     global world
  
     running = True
@@ -49,6 +51,9 @@ def reset_world():
 
     man=Man()
     world.append(man)
+
+    Bboy=boardMan()
+    world.append(Bboy)
 
 def renderer_world():
     clear_canvas()

@@ -15,13 +15,15 @@ class Man:
 
     def draw(self):
         if self.dir == 3: #정면
-            self.image.clip_draw(self.frame * 0 + 200 -2, 0, 45, 100, self.x, self.y, 30, 60)
+            self.image.clip_draw(self.frame * 0 + 200 -2, 0, 45, 100, self.x, self.y, 30, 55)
         elif self.dir == 1: #오른쪽
-            self.image.clip_draw(self.frame * 0 + 135, 0, 65, 100, self.x, self.y, 30, 60)
+            self.image.clip_draw(self.frame * 0 + 135, 0, 65, 100, self.x, self.y, 50, 60)
+            self.x += 3
         elif self.dir == -1: #왼쪽
-            self.image.clip_composite_draw(self.frame * 0 + 135, 0, 65, 100, 0, 'h', self.x, self.y, 30, 60)
-        elif self.dir == 0:
-            self.image.clip_draw(self.frame * 0 + 18, 0, 72, 100, self.x, self.y, 30, 60)
+            self.image.clip_composite_draw(self.frame * 0 + 135, 0, 65, 100, 0, 'h', self.x, self.y, 50, 60)
+            self.x -= 3
+        elif self.dir == 0: #정지
+            self.image.clip_draw(self.frame * 0 + 18, 0, 72, 100, self.x, self.y, 50, 60)
 
 
 
