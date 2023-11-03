@@ -15,23 +15,15 @@ def handle_events():
 
     events = get_events()
     for event in events:
-        if event.type == SDL_QUIT or event.key == SDLK_ESCAPE:
+        if event.type == SDL_QUIT :
             running = False
-        elif event.type == SDL_KEYDOWN:
-            if event.key == SDLK_RIGHT:
-                man.dir = 1
-            elif event.key == SDLK_LEFT:
-                man.dir = -1
-            elif event.key == SDLK_SPACE: #정ㅈ;ㅣ
-                man.dir = 0
-        elif event.type == SDL_KEYUP:
-            if event.key == SDLK_RIGHT and man.dir == 1:
-                man.dir = 3
-            elif event.key == SDLK_LEFT and man.dir == -1:
-                man.dir = 3
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            running = False
+        else:
+            man.handle_event(event)
 
 
-running = True
+#running = True
 def reset_world():
     global running
     global bigtree
