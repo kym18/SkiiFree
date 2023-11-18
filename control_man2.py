@@ -3,7 +3,7 @@ from tree import BigTree
 from stone import Stone
 from man import Man
 from boardman import boardMan
-
+import game_world
 Snow_WIDTH, Snow_HEIGHT = 800, 800
 open_canvas(Snow_WIDTH, Snow_HEIGHT)
 
@@ -24,42 +24,48 @@ def handle_events():
 
 
 #running = True
-def reset_world():
+def create_world():
     global running
     global bigtree
     global stone
     global man
     global Bboy
-    global world
- 
+    #global world
+
     running = True
-    world = []
+    #world = []
 
     bigtree = [BigTree() for i in range(10)]
-    world += bigtree
+    # world += bigtree
+    game_world.add_objects(bigtree)
 
     stone = [Stone() for i in range(2)]
-    world += stone
+    # world += stone
+    game_world.add_objects(stone)
 
     man=Man()
-    world.append(man)
+    # world.append(man)
+    game_world.add_object(man)
 
     Bboy=boardMan()
-    world.append(Bboy)
+    # world.append(Bboy)
+    game_world.add_object(Bboy)
 
 def renderer_world():
     clear_canvas()
     Snow.draw(Snow_WIDTH // 2, Snow_HEIGHT // 2)
     start_p.draw(Snow_WIDTH // 2 - 50, Snow_HEIGHT - 80, 80, 50)
-    for o in world:
-        o.draw()
+    game_world.render()
+
     update_canvas()
 
 def update_world():
-    for o in world:
-        o.update()
+    game_world.update()
+     # for o in world:
+     #     o.update()
 
-reset_world()
+
+create_world()
 
 while running:
     handle_events()  # 사용자의 입력 받음
