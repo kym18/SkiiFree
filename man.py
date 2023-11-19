@@ -1,4 +1,4 @@
-from pico2d import load_image
+from pico2d import load_image, draw_rectangle
 from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDLK_DOWN, SDLK_UP
 
 
@@ -31,6 +31,7 @@ class Man:
 
     def draw(self):
         self.state_machine.draw()
+        draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
 
 
     def update(self):
@@ -42,6 +43,9 @@ class Man:
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
+
+    def get_bb(self):
+        return self.x - 25, self.y - 25, self.x + 25, self.y + 25
 
 
 class Idle:  #내려가기

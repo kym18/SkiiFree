@@ -23,8 +23,8 @@ def init():
     global running
     global snow
     global start
-    global bigtree
-    global stone
+    global bigtrees
+    global stones
     global man
     global Bboy
 
@@ -36,11 +36,11 @@ def init():
     start = Start()
     game_world.add_object(start)
 
-    bigtree = [BigTree() for i in range(10)]
-    game_world.add_objects(bigtree)
+    bigtrees = [BigTree() for _ in range(30)]
+    game_world.add_objects(bigtrees)
 
-    stone = [Stone() for i in range(2)]
-    game_world.add_objects(stone)
+    stones = [Stone() for _ in range(2)]
+    game_world.add_objects(stones)
 
     man=Man()
     game_world.add_object(man)
@@ -55,6 +55,14 @@ def draw():
 
 def update_world():
     game_world.update()
+    for tree in bigtrees:
+        if game_world.collide(man, tree):
+            print('COLLISION man:bigtree')
+
+    for stone in stones:
+        if game_world.collide(man, stone):
+            print('COLLISION man:stone')
+
 
 
 
