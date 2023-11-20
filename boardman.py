@@ -13,5 +13,4 @@ class boardMan:
 
     def update(self):
         self.frame = (self.frame + 1) % 3
-        print(self.frame)
         self.y -= self.speed

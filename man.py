@@ -17,6 +17,9 @@ def left_down(e):
 def left_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
+def crash():
+    return True;
+
 class Man:
     def __init__(self): #생성자 함수, 객체 생성될 때 맨 처음 자동 호출 -> 객체 초기 상태
         self.x, self.y = Snow_WIDTH // 2 - 10, Snow_HEIGHT - 130
@@ -25,6 +28,8 @@ class Man:
         self.image = load_image('snowman.png')
         self.speed = 10
         self.dir = 0
+        self.opCount = 0;
+        self.optime = 0;
         # 0:정지(왼쪽), 1:오른쪽,-1:왼쪽,
         self.state_machine = StateMachine(self)
         self.state_machine.start()
@@ -36,16 +41,16 @@ class Man:
 
     def update(self):
         self.state_machine.update()
-        # if self.dir == 0:
-        #     self.speed = 0
-        # elif self.dir != 0:
-        #     self.y -= self.speed
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
 
     def get_bb(self):
         return self.x - 25, self.y - 25, self.x + 25, self.y + 25
+
+    def handle_collision(self, groub, other):
+        if groub == 'man:bigtree':
+            self.dir = 9
 
 
 class Idle:  #내려가기
@@ -63,6 +68,19 @@ class Idle:  #내려가기
         man.frame = (man.frame + 1) % 8
         if man.dir == 3:
             man.y -= 10
+        if man.dir == 9:
+            man.opCount += 1
+            man.optime += 1
+            print(man.opCount)
+
+            if man.opCount <= 15:
+                man.y -= 7
+                man.opCount = 0
+                if man.optime >= 29:
+                    man.dir = 3
+
+
+
 
     @staticmethod
     def draw(man):
@@ -70,6 +88,9 @@ class Idle:  #내려가기
             man.image.clip_draw(man.frame * 0 + 200 - 2, 0, 45, 100, man.x, man.y, 30, 55)
         elif man.dir == 0:
             man.image.clip_draw(man.frame * 0 + 18, 0, 72, 100, man.x, man.y, 50, 60)
+        elif man.dir == 9:
+            man.image.clip_draw(man.frame * 0 + 325, 0, 80, 100, man.x, man.y, 40, 60)
+
 
 
 class Stop:  #w정지
@@ -78,8 +99,6 @@ class Stop:  #w정지
         if space_down(e):
             man.dir = 0
 
-        print('오른쪽 보기')
-
     @staticmethod
     def exit(man, e):
         pass
@@ -87,6 +106,19 @@ class Stop:  #w정지
     @staticmethod
     def do(man):
         man.frame = (man.frame + 1) % 8
+        if man.dir == 9:
+            man.opCount += 1
+            man.optime += 1
+            print(man.opCount)
+
+            if man.opCount <= 15:
+                man.y -= 7
+                man.opCount = 0
+                if man.optime >= 29:
+                    man.dir = 3
+
+
+
 
     @staticmethod
     def draw(man):
@@ -94,6 +126,8 @@ class Stop:  #w정지
             man.image.clip_draw(man.frame * 0 + 18, 0, 72, 100, man.x, man.y, 50, 60)
         elif man.dir == 2: #오른쪽 보고 정지
             man.image.clip_composite_draw(man.frame * 0 + 18, 0, 72, 100, 0, 'h', man.x, man.y, 50, 60)
+        elif man.dir == 9:
+            man.image.clip_draw(man.frame * 0 + 325, 0, 80, 100, man.x, man.y, 40, 60)
 
 
 class Run:  #내려가기
@@ -114,6 +148,18 @@ class Run:  #내려가기
         if man.dir == -1 or man.dir == 1: #오른쪽/ 왼쪽
             man.y -= 10
             man.x += man.dir * 5
+        if man.dir == 9:
+            man.opCount += 1
+            man.optime += 1
+            print(man.opCount)
+
+            if man.opCount <= 15:
+                man.y -= 7
+                man.opCount = 0
+                if man.optime >= 29:
+                    man.dir = 3
+
+
 
     @staticmethod
     def draw(man):
@@ -121,6 +167,8 @@ class Run:  #내려가기
             man.image.clip_draw(man.frame * 0 + 135, 0, 65, 100, man.x, man.y, 50, 60)
         elif man.dir == -1:  # 왼쪽
             man.image.clip_composite_draw(man.frame *  0 + 135, 0, 65, 100, 0, 'h', man.x, man.y, 50, 60)
+        elif man.dir == 9:
+            man.image.clip_draw(man.frame * 0 + 325, 0, 80, 100, man.x, man.y, 40, 60)
 
 
 class StateMachine:
@@ -130,7 +178,7 @@ class StateMachine:
         self.transitions = {
             Run:{space_down: Stop, right_up:Idle, left_up:Idle},
             Idle:{right_down: Run, left_down:Run, right_up:Run, left_up:Run, space_down: Stop},  #정면하강
-            Stop:{right_down: Run, left_down:Run, right_up:Idle, left_up:Idle}
+            Stop:{right_down: Run, left_down:Run, right_up:Idle, left_up:Idle},
         }
 
     def start(self):
@@ -149,4 +197,6 @@ class StateMachine:
                 self.cur_state.enter(self.man, e)
                 return True
         return False
+
+
 

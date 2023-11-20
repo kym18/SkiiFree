@@ -18,3 +18,7 @@ class BigTree:
 
     def get_bb(self):
         return self.x - 15, self.y - 20, self.x + 15, self.y + 20
+
+    def handle_collision(self, groub, other):
+        if groub == 'man:bigree':
+            pass

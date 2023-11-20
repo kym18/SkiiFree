@@ -5,6 +5,7 @@ from stone import Stone
 from man import Man
 from boardman import boardMan
 import game_world
+import game_framework
 
 def handle_events():
     global running
@@ -38,12 +39,22 @@ def init():
 
     bigtrees = [BigTree() for _ in range(30)]
     game_world.add_objects(bigtrees)
+    for bigtree in bigtrees:
+        game_world.add_collision_pair('man:bigtree', None, bigtree)
+        print('man tree 충돌')
+
 
     stones = [Stone() for _ in range(2)]
     game_world.add_objects(stones)
+    for stone in stones:
+        game_world.add_collision_pair('man:stone', None, stones)
+
 
     man=Man()
     game_world.add_object(man)
+    game_world.add_collision_pair('man:bigtree', man, None)
+
+
 
     Bboy=boardMan()
     game_world.add_object(Bboy)
@@ -55,13 +66,7 @@ def draw():
 
 def update_world():
     game_world.update()
-    for tree in bigtrees:
-        if game_world.collide(man, tree):
-            print('COLLISION man:bigtree')
-
-    for stone in stones:
-        if game_world.collide(man, stone):
-            print('COLLISION man:stone')
+    game_world.handle_collisions()
 
 
 
