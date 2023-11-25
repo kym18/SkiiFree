@@ -41,7 +41,7 @@ class Man:
         return self.game_start
     def draw(self):
         self.state_machine.draw()
-        draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
+        # draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
 
 
     def update(self):
@@ -52,7 +52,7 @@ class Man:
         self.state_machine.handle_event(('INPUT', event))
 
     def get_bb(self):
-        return self.x - 25, self.y - 25, self.x + 25, self.y + 25
+        return self.x - 20, self.y - 20, self.x + 20, self.y + 20
 
     def handle_collision(self, groub, other):
         if groub == 'man:bigtree':

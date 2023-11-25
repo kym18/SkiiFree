@@ -39,7 +39,7 @@ class BigTree:
     def draw(self):
         if self.y < self.screen_height:
             self.image.draw(self.x, self.y, 30, 50)
-            draw_rectangle(*self.get_bb())
+            # draw_rectangle(*self.get_bb())
 
     def update(self):
         self.y += 10
@@ -48,8 +48,9 @@ class BigTree:
             self.x = random.randint(0, 800)
 
     def get_bb(self):
-        return self.x - 15, self.y - 20, self.x + 15, self.y + 20
+        return self.x - 12, self.y - 18, self.x + 12, self.y + 18
 
     def handle_collision(self, groub, other):
-        if groub == 'man:bigree':
-            pass
+        if groub == 'man:bigtree':
+            self.y -= 5
+            print(self.y)
