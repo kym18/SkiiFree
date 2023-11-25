@@ -1,7 +1,6 @@
 from pico2d import load_image, draw_rectangle
 from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDLK_DOWN, SDLK_UP
-
-
+import math
 
 Snow_WIDTH, Snow_HEIGHT = 800, 800
 def space_down(e):
@@ -34,6 +33,7 @@ class Man:
         self.state_machine = StateMachine(self)
         self.state_machine.start()
 
+
     def draw(self):
         self.state_machine.draw()
         draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
@@ -41,6 +41,7 @@ class Man:
 
     def update(self):
         self.state_machine.update()
+
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
@@ -67,14 +68,15 @@ class Idle:  #내려가기
     def do(man):
         man.frame = (man.frame + 1) % 8
         if man.dir == 3:
-            man.y -= 10
+            # man.y -= 10
+            pass
         if man.dir == 9:
             man.opCount += 1
             man.optime += 1
             print(man.opCount)
 
             if man.opCount <= 15:
-                man.y -= 7
+                # man.y -= 7
                 man.opCount = 0
                 if man.optime >= 29:
                     man.dir = 3
@@ -112,7 +114,7 @@ class Stop:  #w정지
             print(man.opCount)
 
             if man.opCount <= 15:
-                man.y -= 7
+                # man.y -= 7
                 man.opCount = 0
                 if man.optime >= 29:
                     man.dir = 3
@@ -146,7 +148,7 @@ class Run:  #내려가기
     def do(man):
         man.frame = (man.frame + 1) % 8
         if man.dir == -1 or man.dir == 1: #오른쪽/ 왼쪽
-            man.y -= 10
+            # man.y -= 10
             man.x += man.dir * 5
         if man.dir == 9:
             man.opCount += 1
@@ -154,7 +156,7 @@ class Run:  #내려가기
             print(man.opCount)
 
             if man.opCount <= 15:
-                man.y -= 7
+                # man.y -= 7
                 man.opCount = 0
                 if man.optime >= 29:
                     man.dir = 3

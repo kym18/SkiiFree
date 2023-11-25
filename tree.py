@@ -14,7 +14,7 @@ class BigTree:
         #print(self.x, self.y)
 
     def update(self):
-        pass
+        self.y += 10
 
     def get_bb(self):
         return self.x - 15, self.y - 20, self.x + 15, self.y + 20

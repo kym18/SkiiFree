@@ -34,6 +34,7 @@ def init():
     snow = Snow()
     game_world.add_object(snow)
 
+
     start = Start()
     game_world.add_object(start)
 
@@ -67,7 +68,3 @@ def draw():
 def update_world():
     game_world.update()
     game_world.handle_collisions()
-
-
-
-
