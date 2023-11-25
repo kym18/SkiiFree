@@ -45,6 +45,7 @@ class BigTree:
         self.y += 10
         if self.y > self.screen_height:
             self.y = 0  # 화면 상단 밖에서 랜덤한 위치로 다시 생성
+            self.x = random.randint(0, 800)
 
     def get_bb(self):
         return self.x - 15, self.y - 20, self.x + 15, self.y + 20

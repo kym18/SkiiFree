@@ -75,7 +75,7 @@ class Idle:  #내려가기
         if man.dir == 3:
             # man.y -= 10
             pass
-        if man.dir == 9:
+        if man.dir == 9: #넘어지기
             man.opCount += 1
             man.optime += 1
 
@@ -155,7 +155,7 @@ class Run:  #내려가기
         man.frame = (man.frame + 1) % 8
         if man.dir == -1 or man.dir == 1: #오른쪽/ 왼쪽
             # man.y -= 10
-            man.x += man.dir * 5
+            man.x += man.dir * 8
         if man.dir == 9:
             man.opCount += 1
             man.optime += 1
