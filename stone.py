@@ -4,7 +4,7 @@ from pico2d import load_image, draw_rectangle
 
 class Stone:
     def __init__(self): #생성자 함수, 객체 생성될 때 맨 처음 자동 호출 -> 객체 초기 상태
-        self.image = load_image('stone.png')
+        self.image = load_image('Images/stone.png')
         self.x, self.y = random.randint(40, 780), random.randint(40, 780)
 
     def draw(self):

@@ -19,6 +19,7 @@ def handle_events():
         else:
             man.handle_event(event)
 
+
 #running = True
 def init():
     global running
@@ -42,7 +43,7 @@ def init():
     game_world.add_objects(bigtrees)
     for bigtree in bigtrees:
         game_world.add_collision_pair('man:bigtree', None, bigtree)
-        print('man tree 충돌')
+        #print('man tree 충돌')
 
 
     stones = [Stone() for _ in range(2)]

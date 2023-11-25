@@ -2,6 +2,8 @@ from pico2d import load_image, draw_rectangle
 from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDLK_DOWN, SDLK_UP
 import math
 
+
+
 Snow_WIDTH, Snow_HEIGHT = 800, 800
 def space_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE
@@ -24,16 +26,19 @@ class Man:
         self.x, self.y = Snow_WIDTH // 2 - 10, Snow_HEIGHT - 130
         self.frame = 0
         #self.action = 3 # 0:정지(왼쪽),2: 정지(오른쪽), 1:오른쪽,-1:왼쪽,
-        self.image = load_image('snowman.png')
+        self.image = load_image('Images/snowman.png')
         self.speed = 10
         self.dir = 0
-        self.opCount = 0;
-        self.optime = 0;
+        self.opCount = 0; #넘어지는
+        self.optime = 0;  #넘어지는 시간
         # 0:정지(왼쪽), 1:오른쪽,-1:왼쪽,
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+        self.game_start = False
 
 
+    def ReturnGameStart(self):
+        return self.game_start
     def draw(self):
         self.state_machine.draw()
         draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
@@ -73,7 +78,6 @@ class Idle:  #내려가기
         if man.dir == 9:
             man.opCount += 1
             man.optime += 1
-            print(man.opCount)
 
             if man.opCount <= 15:
                 # man.y -= 7
@@ -111,7 +115,7 @@ class Stop:  #w정지
         if man.dir == 9:
             man.opCount += 1
             man.optime += 1
-            print(man.opCount)
+            #print(man.opCount)
 
             if man.opCount <= 15:
                 # man.y -= 7
@@ -137,8 +141,10 @@ class Run:  #내려가기
     def enter(man,e):
         if right_down(e) or left_up(e) : #오른쪽으로 내려가기
             man.dir, man.action = 1, 1
+            game_start = True
         elif left_down(e) or right_up(e): #왼쪽으로 내려각
             man.dir, man.action = -1, -1
+            game_start = True
 
     @staticmethod
     def exit(man, e):
@@ -153,7 +159,7 @@ class Run:  #내려가기
         if man.dir == 9:
             man.opCount += 1
             man.optime += 1
-            print(man.opCount)
+            #print(man.opCount)
 
             if man.opCount <= 15:
                 # man.y -= 7
@@ -192,6 +198,9 @@ class StateMachine:
         self.cur_state.draw(self.man)
 
     def handle_event(self,e):
+        if self.man.game_start == False:
+            self.man.game_start = True
+
         for check_event, next_state in self.transitions[self.cur_state].items():
             if check_event(e):
                 self.cur_state.exit(self.man, e)
