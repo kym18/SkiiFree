@@ -8,8 +8,9 @@ class BigTree:
         self.x, self.y = random.randint(50, 750), random.randint(50, 750)
 
     def draw(self):
-        self.image.draw(self.x, self.y, 30, 50)
-        draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
+        if self.y < 800:
+            self.image.draw(self.x, self.y, 30, 50)
+            draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
 
         #print(self.x, self.y)
 
