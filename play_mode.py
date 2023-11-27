@@ -43,6 +43,7 @@ def init():
     game_world.add_objects(bigtrees)
     for bigtree in bigtrees:
         game_world.add_collision_pair('man:bigtree', None, bigtree)
+        game_world.add_collision_pair('Bboy:bigtree', None, bigtree)
         #print('man tree 충돌')
 
 
@@ -50,17 +51,20 @@ def init():
     game_world.add_objects(stones)
     for stone in stones:
         game_world.add_collision_pair('man:stone', None, stone)
+        game_world.add_collision_pair('Bboy:stone', None, stone)
 
 
     man=Man()
     game_world.add_object(man)
     game_world.add_collision_pair('man:bigtree', man, None)
     game_world.add_collision_pair('man:stone', man, None)
-
-
+    game_world.add_collision_pair('man:Bboy', man, None)
 
     Bboy=boardMan()
     game_world.add_object(Bboy)
+    game_world.add_collision_pair('Bboy:stone', Bboy, None)
+    game_world.add_collision_pair('Bboy:bigtree', Bboy, None)
+    game_world.add_collision_pair('man:Bboy', Bboy, None)
 
 def draw():
     clear_canvas()

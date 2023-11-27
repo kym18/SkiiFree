@@ -59,6 +59,8 @@ class Man:
             self.dir = 9
         elif groub == 'man:stone':
             self.dir = 9
+        elif groub == 'man:Bboy':
+            self.dir = 9
 
 
 class Idle:  #내려가기

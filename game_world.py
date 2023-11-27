@@ -25,7 +25,7 @@ def render():
 def add_collision_pair(group, a, b): #a,b는 충돌체크 해야된다고 gameworld에게 알ㄹ려줌
     # #add_collision_pair('boy:ball', none, ball)
     if group not in collision_pairs: #dictionary에 키 group 존재하지 않음
-        print(f'new group {group} added......')
+        # print(f'new group {group} added......')
         collision_pairs[group] = [ [],[] ]
     if a:
         collision_pairs[group][0].append(a)
