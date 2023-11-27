@@ -6,7 +6,7 @@ class boardMan:
     def __init__(self):
         self.image = load_image('Images/boardman.png')
         self.frame = 0
-        self.x, self.y = random.randint(50, 750), 820
+        self.x, self.y = random.randint(30, 770), -100  # 시작 시 y 좌표를 화면 밖으로 설정
         self.speed = 5
         self.last_time = get_time()
 
@@ -15,8 +15,8 @@ class boardMan:
 
     def update(self):
         current_time = get_time()
-        if current_time - self.last_time > 25.0:  # 25초마다
-            self.y = 800
+        if current_time - self.last_time > 25.0:  # 25초가 지난 후에 나타남
+            self.y = 810  # 새로운 y 좌표 설정
             self.last_time = current_time
         else:
             self.frame = (self.frame + 1) % 3
