@@ -48,7 +48,7 @@ class BigTree:
             self.x = random.randint(0, 800)
 
     def get_bb(self):
-        return self.x - 12, self.y - 18, self.x + 12, self.y + 18
+        return self.x - 8, self.y - 15, self.x + 8, self.y + 15
 
     def handle_collision(self, groub, other):
         if groub == 'man:bigtree':
