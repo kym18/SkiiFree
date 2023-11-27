@@ -53,4 +53,3 @@ class BigTree:
     def handle_collision(self, groub, other):
         if groub == 'man:bigtree':
             self.y -= 5
-            print(self.y)

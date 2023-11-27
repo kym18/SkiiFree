@@ -49,12 +49,13 @@ def init():
     stones = [Stone() for _ in range(2)]
     game_world.add_objects(stones)
     for stone in stones:
-        game_world.add_collision_pair('man:stone', None, stones)
+        game_world.add_collision_pair('man:stone', None, stone)
 
 
     man=Man()
     game_world.add_object(man)
     game_world.add_collision_pair('man:bigtree', man, None)
+    game_world.add_collision_pair('man:stone', man, None)
 
 
 

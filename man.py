@@ -57,6 +57,8 @@ class Man:
     def handle_collision(self, groub, other):
         if groub == 'man:bigtree':
             self.dir = 9
+        elif groub == 'man:stone':
+            self.dir = 9
 
 
 class Idle:  #내려가기
