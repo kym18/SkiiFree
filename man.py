@@ -1,4 +1,4 @@
-from pico2d import load_image, draw_rectangle
+from pico2d import load_image, draw_rectangle, get_time
 from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDLK_DOWN, SDLK_UP
 import math
 
@@ -21,7 +21,6 @@ class Man:
     def __init__(self): #생성자 함수, 객체 생성될 때 맨 처음 자동 호출 -> 객체 초기 상태
         self.x, self.y = Snow_WIDTH // 2 - 10, Snow_HEIGHT - 130
         self.frame = 0
-        #self.action = 3 # 0:정지(왼쪽),2: 정지(오른쪽), 1:오른쪽,-1:왼쪽,
         self.image = load_image('Images/snowman.png')
         self.speed = 10
         self.dir = 0
@@ -31,6 +30,7 @@ class Man:
         self.state_machine = StateMachine(self)
         self.state_machine.start()
         self.game_start = False
+        self.last_time = get_time()
 
     def ReturnGameStart(self):
         return self.game_start
@@ -40,7 +40,12 @@ class Man:
 
 
     def update(self):
-        self.state_machine.update()
+        current_time = get_time()
+        if current_time - self.last_time > 3.0 and current_time - self.last_time < 3.2:  # 3초가 지난 후에 나타남
+            self.dir = 3
+            self.state_machine.update()
+        else:
+            self.state_machine.update()
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
@@ -61,7 +66,7 @@ class Idle:  #내려가기
     @staticmethod
     def enter(man, e):
         if left_up(e) or right_up(e):
-            man.dir, man.action = 3, 0
+            man.dir = 3
 
     @staticmethod
     def exit(man, e):
@@ -82,9 +87,6 @@ class Idle:  #내려가기
                 man.opCount = 0
                 if man.optime >= 29:
                     man.dir = 3
-
-
-
 
     @staticmethod
     def draw(man):
