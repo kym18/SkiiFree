@@ -10,6 +10,8 @@ class boardMan:
         self.speed = 5
         self.last_time = get_time()
         self.action = 0  # 0이면 하강중. 1이면 부닥침
+        self.opCount = 0;  # 넘어지는
+        self.optime = 0;  # 넘어지는 시간
 
     def draw(self):
         draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
@@ -26,8 +28,16 @@ class boardMan:
         else:
             if self.action == 0:
                 self.frame = (self.frame + 1) % 3
-            elif self.action == 1:
+            elif self.action == 1: #넘어짐
                 self.frame = 0
+                self.opCount += 1
+                self.optime += 1
+
+                if self.opCount <= 15:
+                    self.opCount = 0
+                    if self.optime >= 29:
+                        self.action = 0
+
             self.y -= self.speed
 
     def get_bb(self):

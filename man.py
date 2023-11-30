@@ -2,11 +2,7 @@ from pico2d import load_image, draw_rectangle
 from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDLK_DOWN, SDLK_UP
 import math
 
-
-
 Snow_WIDTH, Snow_HEIGHT = 800, 800
-def space_down(e):
-    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE
 def time_out(e):
     return e[0] == 'TIME_OUT'  # and e[1] > 3.0
 def right_down(e):
@@ -36,7 +32,6 @@ class Man:
         self.state_machine.start()
         self.game_start = False
 
-
     def ReturnGameStart(self):
         return self.game_start
     def draw(self):
@@ -46,7 +41,6 @@ class Man:
 
     def update(self):
         self.state_machine.update()
-
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
@@ -101,45 +95,6 @@ class Idle:  #내려가기
         elif man.dir == 9:
             man.image.clip_draw(man.frame * 0 + 325, 0, 80, 100, man.x, man.y, 40, 60)
 
-
-
-class Stop:  #w정지
-    @staticmethod
-    def enter(man, e):
-        if space_down(e):
-            man.dir = 0
-
-    @staticmethod
-    def exit(man, e):
-        pass
-
-    @staticmethod
-    def do(man):
-        man.frame = (man.frame + 1) % 8
-        if man.dir == 9:
-            man.opCount += 1
-            man.optime += 1
-            #print(man.opCount)
-
-            if man.opCount <= 15:
-                # man.y -= 7
-                man.opCount = 0
-                if man.optime >= 29:
-                    man.dir = 3
-
-
-
-
-    @staticmethod
-    def draw(man):
-        if man.dir == 0: #왼쪽 보고 정지
-            man.image.clip_draw(man.frame * 0 + 18, 0, 72, 100, man.x, man.y, 50, 60)
-        elif man.dir == 2: #오른쪽 보고 정지
-            man.image.clip_composite_draw(man.frame * 0 + 18, 0, 72, 100, 0, 'h', man.x, man.y, 50, 60)
-        elif man.dir == 9:
-            man.image.clip_draw(man.frame * 0 + 325, 0, 80, 100, man.x, man.y, 40, 60)
-
-
 class Run:  #내려가기
     @staticmethod
     def enter(man,e):
@@ -171,8 +126,6 @@ class Run:  #내려가기
                 if man.optime >= 29:
                     man.dir = 3
 
-
-
     @staticmethod
     def draw(man):
         if man.dir == 1:
@@ -188,9 +141,8 @@ class StateMachine:
         self.man = man
         self.cur_state = Idle
         self.transitions = {
-            Run:{space_down: Stop, right_up:Idle, left_up:Idle},
-            Idle:{right_down: Run, left_down:Run, right_up:Run, left_up:Run, space_down: Stop},  #정면하강
-            Stop:{right_down: Run, left_down:Run, right_up:Idle, left_up:Idle},
+            Run:{ right_up:Idle, left_up:Idle},
+            Idle:{right_down: Run, left_down:Run, right_up:Run, left_up:Run},  #정면하강
         }
 
     def start(self):
