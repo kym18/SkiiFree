@@ -25,21 +25,21 @@ class boardMan:
         if current_time - self.last_time > 25.0:  # 25초가 지난 후에 나타남
             self.y = 810  # 새로운 y 좌표 설정
             self.last_time = current_time
-        else:
-            if self.action == 0:
-                self.frame = (self.frame + 1) % 3
-            elif self.action == 1: #넘어짐
-                self.frame = 0
-                self.y += self.speed / 2
-                self.opCount += 1
-                self.optime += 1
+        # else:
+        if self.action == 0:
+            self.frame = (self.frame + 1) % 3
+        elif self.action == 1:  # 넘어짐
+            self.frame = 0
+            self.y += self.speed / 2
+            self.opCount += 1
+            self.optime += 1
 
-                if self.opCount <= 15:
-                    self.opCount = 0
-                    if self.optime >= 29:
-                        self.action = 0
+            if self.opCount <= 15:
+                self.opCount = 0
+            if self.optime >= 29:
+                self.action = 0
 
-            self.y -= self.speed
+        self.y -= self.speed
 
     def get_bb(self):
         return self.x - 10, self.y - 20, self.x + 10, self.y + 20
@@ -52,4 +52,3 @@ class boardMan:
         elif groub == 'man:Bboy':
             self.action = 1
             print('보드맨 사람 ㅠㅠ')
-
