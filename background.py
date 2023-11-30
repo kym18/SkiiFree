@@ -21,10 +21,13 @@ class Start:
         self.image = load_image('Images/start.png')
         self.screen_height = 800  # 화면 높이 설정
         self.y = Snow_HEIGHT - 80
+        self.last_time = get_time()
 
     def draw(self):
         if self.y < 800:
             self.image.draw(Snow_WIDTH // 2 - 50,self.y, 80, 50)
 
     def update(self):
-        self.y += 10
+        current_time = get_time()
+        if current_time - self.last_time > 3.0:  # 25초가 지난 후에 나타남
+            self.y += 10
