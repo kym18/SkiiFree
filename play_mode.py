@@ -4,6 +4,7 @@ from tree import BigTree
 from stone import Stone
 from man import Man
 from boardman import boardMan
+from monster import Monster
 import game_world
 import game_framework
 
@@ -65,6 +66,9 @@ def init():
     game_world.add_collision_pair('Bboy:stone', Bboy, None)
     game_world.add_collision_pair('Bboy:bigtree', Bboy, None)
     game_world.add_collision_pair('man:Bboy', Bboy, None)
+
+    monster = Monster()
+    game_world.add_object(monster)
 
 def draw():
     clear_canvas()
