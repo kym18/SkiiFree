@@ -1,34 +1,28 @@
 from pico2d import load_image, get_events, clear_canvas, update_canvas, get_time
+from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDLK_SPACE
+
 import game_framework
-import title_mode
-
-
+import play_mode
 def init():
     global image
-    global explanation_start_time
-    running = True
-    image = load_image('')
-    logo_start_time = get_time()
-    pass
+    image = load_image('Images/title.png')
 
+# def update():
+#     global running
+#     pass
 def finish():
-    pass
-
+    global image
+    del image
 def handle_events():
     events = get_events()
-    pass
-
-def update():
-    global running
-    if get_time() - explanation_start_time >= 2.0:
-        game_framework.change_mode(title_mode)
-    pass
-
+    for event in events:
+        if event.type == SDL_QUIT:
+            game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            game_framework.quit()
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
+            game_framework.change_mode(play_mode)
 def draw():
     clear_canvas()
-    image.draw(400, 300)
+    image.draw(400,400)
     update_canvas()
-    pass
-
-def pause(): pass
-def resume(): pass

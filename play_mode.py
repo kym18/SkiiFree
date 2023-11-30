@@ -1,5 +1,5 @@
 from pico2d import *
-from background import Snow, Start
+from background import Snow, Start, Count
 from tree import BigTree
 from stone import Stone
 from man import Man
@@ -7,6 +7,7 @@ from boardman import boardMan
 from monster import Monster
 import game_world
 import game_framework
+import explanation_mode
 
 def handle_events():
     global running
@@ -14,9 +15,9 @@ def handle_events():
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT :
-            running = False
+            game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            running = False
+            game_framework.change_mode(explanation_mode)
         else:
             man.handle_event(event)
 
@@ -30,12 +31,16 @@ def init():
     global stones
     global man
     global Bboy
+    global count
 
     running = True
 
     snow = Snow()
     game_world.add_object(snow)
 
+
+    count = Count()
+    game_world.add_object(count)
 
     start = Start()
     game_world.add_object(start)
@@ -81,3 +86,14 @@ def draw():
 def update_world():
     game_world.update()
     game_world.handle_collisions()
+
+
+def finish():
+    game_world.clear()
+    pass
+
+def pause():
+    pass
+
+def resume():
+    pass

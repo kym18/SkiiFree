@@ -11,7 +11,7 @@ class Monster:
         self.image = load_image('Images/monster.png')
         self.frame = 0
         self.x, self.y = random.randint(300, 500), -100  # 시작 시 y 좌표를 화면 밖으로 설정
-        self.speed = 8
+        self.speed = 10
         self.last_time = get_time()
         self.action = 0  # 0이면 달려감. 1이면 잡아먹음
 
