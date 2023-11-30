@@ -56,4 +56,6 @@ class Monster:
             self.action = 1
             for play_mode.bigtree in play_mode.bigtrees:
                 play_mode.bigtree.dir = 1
+            for play_mode.stone in play_mode.stones:
+                play_mode.stone.dir = 1
 

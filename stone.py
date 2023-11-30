@@ -9,6 +9,7 @@ class Stone:
         self.x, self.y = random.randint(40, 780), random.randint(40, 780)
         self.screen_height = 800  # 화면 높이 설정
         self.last_time = get_time()
+        self.dir = 0
 
     def draw(self):
         if self.y < 800:
@@ -19,11 +20,14 @@ class Stone:
 
     def update(self):
         current_time = get_time()
-        if current_time - self.last_time > 3.0:  # 3초가 지난 후에 나타남
-            self.y += 10
-        if self.y > self.screen_height:
-            self.y = 0  # 화면 상단 밖에서 랜덤한 위치로 다시 생성
-            self.x = random.randint(0, 800)
+        if self.dir == 0:
+            if current_time - self.last_time > 3.0:  # 3초가 지난 후에 나타남
+                self.y += 10
+            if self.y > self.screen_height:
+                self.y = 0  # 화면 상단 밖에서 랜덤한 위치로 다시 생성
+                self.x = random.randint(0, 800)
+        elif self.dir == 1:
+            None
 
     def get_bb(self):
         return self.x - 10, self.y - 10, self.x + 10, self.y + 10
