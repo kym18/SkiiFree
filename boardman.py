@@ -22,7 +22,7 @@ class boardMan:
 
     def update(self):
         current_time = get_time()
-        if current_time - self.last_time > 5.0:  # 25초가 지난 후에 나타남
+        if current_time - self.last_time > 25.0:  # 25초가 지난 후에 나타남
             self.y = 810  # 새로운 y 좌표 설정
             self.last_time = current_time
         else:
@@ -30,6 +30,7 @@ class boardMan:
                 self.frame = (self.frame + 1) % 3
             elif self.action == 1: #넘어짐
                 self.frame = 0
+                self.y += self.speed / 2
                 self.opCount += 1
                 self.optime += 1
 
@@ -46,11 +47,8 @@ class boardMan:
     def handle_collision(self, groub, other):
         if groub == 'Bboy:bigtree':
             self.action = 1
-            print('보드맨 나무 ㅠㅠ')
         elif groub == 'Bboy:stone':
             self.action = 1
-            print('보드맨 돌 ㅠㅠ')
-
         elif groub == 'man:Bboy':
             self.action = 1
             print('보드맨 사람 ㅠㅠ')
