@@ -36,7 +36,7 @@ class Man:
         return self.game_start
     def draw(self):
         self.state_machine.draw()
-        # draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
+        draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
 
 
     def update(self):
@@ -44,6 +44,11 @@ class Man:
         if current_time - self.last_time > 3.0 and current_time - self.last_time < 3.2:  # 3초가 지난 후에 나타남
             self.dir = 3
             self.state_machine.update()
+        elif self.dir == 5:
+            self.frame = 0
+            self.opCount = 0;  # 넘어지는
+            self.optime = 0;
+            self.speed = 0
         else:
             self.state_machine.update()
 
@@ -60,6 +65,8 @@ class Man:
             self.dir = 9
         elif groub == 'man:Bboy':
             self.dir = 9
+        elif groub == 'man:monster':
+            self. dir = 5 #없애버리기
 
 
 class Idle:  #내려가기
@@ -96,6 +103,8 @@ class Idle:  #내려가기
             man.image.clip_draw(man.frame * 0 + 18, 0, 72, 100, man.x, man.y, 50, 60)
         elif man.dir == 9:
             man.image.clip_draw(man.frame * 0 + 325, 0, 80, 100, man.x, man.y, 40, 60)
+        elif man.dir == 5:
+            None
 
 class Run:  #내려가기
     @staticmethod
@@ -134,8 +143,10 @@ class Run:  #내려가기
             man.image.clip_draw(man.frame * 0 + 135, 0, 65, 100, man.x, man.y, 50, 60)
         elif man.dir == -1:  # 왼쪽
             man.image.clip_composite_draw(man.frame *  0 + 135, 0, 65, 100, 0, 'h', man.x, man.y, 50, 60)
-        elif man.dir == 9:
+        elif man.dir == 9: # 넘어짐
             man.image.clip_draw(man.frame * 0 + 325, 0, 80, 100, man.x, man.y, 40, 60)
+        elif man.dir == 5: # 잡아먹힘
+            None
 
 
 class StateMachine:

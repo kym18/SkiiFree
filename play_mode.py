@@ -60,6 +60,7 @@ def init():
     game_world.add_collision_pair('man:bigtree', man, None)
     game_world.add_collision_pair('man:stone', man, None)
     game_world.add_collision_pair('man:Bboy', man, None)
+    game_world.add_collision_pair('man:monster', man, None)
 
     Bboy=boardMan()
     game_world.add_object(Bboy)
@@ -69,6 +70,8 @@ def init():
 
     monster = Monster()
     game_world.add_object(monster)
+    game_world.add_collision_pair('man:monster', None, monster)
+
 
 def draw():
     clear_canvas()
