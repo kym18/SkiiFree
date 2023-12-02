@@ -40,16 +40,16 @@ def init():
     game_world.add_object(snow)
 
     gameover = Over()
-    game_world.add_object(gameover)
+    game_world.add_object(gameover, 1)
 
     count = Count()
-    game_world.add_object(count)
+    game_world.add_object(count, 1)
 
     start = Start()
     game_world.add_object(start)
 
     bigtrees = [BigTree() for _ in range(30)]
-    game_world.add_objects(bigtrees)
+    game_world.add_objects(bigtrees, 0)
     for bigtree in bigtrees:
         game_world.add_collision_pair('man:bigtree', None, bigtree)
         game_world.add_collision_pair('Bboy:bigtree', None, bigtree)
@@ -57,27 +57,27 @@ def init():
 
 
     stones = [Stone() for _ in range(2)]
-    game_world.add_objects(stones)
+    game_world.add_objects(stones, 0)
     for stone in stones:
         game_world.add_collision_pair('man:stone', None, stone)
         game_world.add_collision_pair('Bboy:stone', None, stone)
 
 
     man=Man()
-    game_world.add_object(man)
+    game_world.add_object(man, 0)
     game_world.add_collision_pair('man:bigtree', man, None)
     game_world.add_collision_pair('man:stone', man, None)
     game_world.add_collision_pair('man:Bboy', man, None)
     game_world.add_collision_pair('man:monster', man, None)
 
     Bboy=boardMan()
-    game_world.add_object(Bboy)
+    game_world.add_object(Bboy, 0)
     game_world.add_collision_pair('Bboy:stone', Bboy, None)
     game_world.add_collision_pair('Bboy:bigtree', Bboy, None)
     game_world.add_collision_pair('man:Bboy', Bboy, None)
 
     monster = Monster()
-    game_world.add_object(monster)
+    game_world.add_object(monster, 0)
     game_world.add_collision_pair('man:monster', None, monster)
 
 
