@@ -35,8 +35,3 @@ class Stone:
     def handle_collision(self, groub, other):
         if groub == 'man:stone':
             pass
-
-    def reset(self):
-        self.x, self.y = random.randint(40, 780), random.randint(40, 780)
-        self.last_time = get_time()
-        self.dir = 0

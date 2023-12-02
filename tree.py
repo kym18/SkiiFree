@@ -38,10 +38,5 @@ class BigTree:
         if groub == 'man:bigtree':
             self.y -= self.speed / 2
 
-    def reset(self):
-        self.x, self.y = random.randint(50, 750), random.randint(50, 750)
-        self.moving_up = False
-        self.last_time = get_time()
-        self.dir = 0
 
 

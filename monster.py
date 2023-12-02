@@ -36,7 +36,7 @@ class Monster:
 
     def update(self):
         current_time = get_time()
-        if current_time - self.last_time > 3.0:  # 25초가 지난 후에 나타남
+        if current_time - self.last_time > 30.0:  # 25초가 지난 후에 나타남
             if self.action == 0:  # 달려감
                 self.frame = (self.frame + 1) % 4
                 self.move_slightly_to(play_mode.man.x, play_mode.man.y)

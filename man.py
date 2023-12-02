@@ -22,7 +22,7 @@ class Man:
         self.x, self.y = Snow_WIDTH // 2 - 10, Snow_HEIGHT - 130
         self.frame = 0
         self.image = load_image('Images/snowman.png')
-        self.speed = 10
+        self.speed = 15
         self.dir = 0
         self.opCount = 0; #넘어지는
         self.optime = 0;  #넘어지는 시간
@@ -68,17 +68,6 @@ class Man:
         elif groub == 'man:monster':
             self. dir = 5 #없애버리기
 
-    def reset(self):
-        self.x, self.y = Snow_WIDTH // 2 - 10, Snow_HEIGHT - 130
-        self.frame = 0
-        self.speed = 10
-        self.dir = 0
-        self.opCount = 0
-        self.optime = 0
-        self.state_machine = StateMachine(self)
-        self.state_machine.start()
-        self.game_start = False
-        self.last_time = get_time()
 
 
 class Idle:  #내려가기

@@ -7,7 +7,7 @@ class boardMan:
         self.image = load_image('Images/boardman.png')
         self.frame = 0
         self.x, self.y = random.randint(300, 500), -100  # 시작 시 y 좌표를 화면 밖으로 설정
-        self.speed = 5
+        self.speed = 10
         self.last_time = get_time()
         self.action = 0  # 0이면 하강중. 1이면 부닥침
         self.opCount = 0;  # 넘어지는
@@ -22,7 +22,7 @@ class boardMan:
 
     def update(self):
         current_time = get_time()
-        if current_time - self.last_time > 25.0:  # 25초가 지난 후에 나타남
+        if current_time - self.last_time > 15.0:  # 25초가 지난 후에 나타남
             self.y = 810  # 새로운 y 좌표 설정
             self.last_time = current_time
         # else:
@@ -53,11 +53,3 @@ class boardMan:
             self.action = 1
             print('보드맨 사람 ㅠㅠ')
 
-    def reset(self):
-        self.x, self.y = random.randint(300, 500), -100
-        self.frame = 0
-        self.speed = 5
-        self.last_time = get_time()
-        self.action = 0
-        self.opCount = 0
-        self.optime = 0
