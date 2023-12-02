@@ -14,7 +14,7 @@ class Stone:
     def draw(self):
         if self.y < 800:
             self.image.draw(self.x, self.y, 20, 25)
-            draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
+            # draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
 
         #print(self.x, self.y)
 
@@ -35,3 +35,8 @@ class Stone:
     def handle_collision(self, groub, other):
         if groub == 'man:stone':
             pass
+
+    def reset(self):
+        self.x, self.y = random.randint(40, 780), random.randint(40, 780)
+        self.last_time = get_time()
+        self.dir = 0

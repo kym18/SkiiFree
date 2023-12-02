@@ -2,9 +2,9 @@ import math
 
 from pico2d import load_image, get_time, draw_rectangle
 import random
-import play_mode
+import play_mode, game_world
 import tree
-
+Snow_WIDTH, Snow_HEIGHT = 800, 800
 
 class Monster:
     def __init__(self):
@@ -16,7 +16,7 @@ class Monster:
         self.action = 0  # 0이면 달려감. 1이면 잡아먹음
 
     def draw(self):
-        draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
+        # draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
         if self.action == 0:  # 달려감, 멀어짐
             self.image.clip_draw(self.frame * 80 + 30, 0, 76, 130, self.x, self.y, 70, 80)
         elif self.action == 1:  # 잡아먹음
@@ -36,21 +36,25 @@ class Monster:
 
     def update(self):
         current_time = get_time()
-        if current_time - self.last_time > 10.0:  # 25초가 지난 후에 나타남
-            # self.y = 810  # 새로운 y 좌표 설정
+        if current_time - self.last_time > 3.0:  # 25초가 지난 후에 나타남
             if self.action == 0:  # 달려감
                 self.frame = (self.frame + 1) % 4
                 self.move_slightly_to(play_mode.man.x, play_mode.man.y)
-            elif self.action == 1:
+            elif self.action == 1: #부딪혔을 때
                 self.frame = (self.frame + 1) % 12
+                play_mode.gameover.screenshow = True
+
+
 
     def get_bb(self):
+
         return self.x - 10, self.y - 20, self.x + 10, self.y + 20
 
     def handle_collision(self, groub, other):
         if groub == 'man:monster':
-            self.action = 1
-            for play_mode.bigtree in play_mode.bigtrees:
-                play_mode.bigtree.dir = 1
-            for play_mode.stone in play_mode.stones:
-                play_mode.stone.dir = 1
+            if self.action == 0:
+                self.action = 1
+                for play_mode.bigtree in play_mode.bigtrees:
+                    play_mode.bigtree.dir = 1
+                for play_mode.stone in play_mode.stones:
+                    play_mode.stone.dir = 1

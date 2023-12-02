@@ -1,5 +1,5 @@
 from pico2d import *
-from background import Snow, Start, Count
+from background import Snow, Start, Count, Over
 from tree import BigTree
 from stone import Stone
 from man import Man
@@ -32,12 +32,15 @@ def init():
     global man
     global Bboy
     global count
+    global gameover
 
     running = True
 
     snow = Snow()
     game_world.add_object(snow)
 
+    gameover = Over()
+    game_world.add_object(gameover)
 
     count = Count()
     game_world.add_object(count)

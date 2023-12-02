@@ -31,6 +31,25 @@ class Count:
             self.Count = max(0, self.Count - int(time_elapsed))  # self.Count를 0까지 감소시킴
             self.last_time = current_time  # 마지막 시간 갱신
 
+    def reset(self):
+        self.x, self.y = Snow_WIDTH // 2, Snow_HEIGHT // 2
+        self.Count = 3
+        self.frame = 0
+        self.last_time = get_time()
+
+class Over:
+    def __init__(self):
+        self.image = load_image('Images/game_over.png')
+        self.screenshow = False
+
+    def draw(self):
+        if self.screenshow == True:
+            self.image.draw(Snow_WIDTH // 2, Snow_HEIGHT // 2)
+
+    def update(self):
+        pass
+
+
 
 class Snow:
     def __init__(self):  # 생성자 함수, 객체 생성될 때 맨 처음 자동 호출 -> 객체 초기 상태
@@ -41,6 +60,7 @@ class Snow:
 
     def update(self):
         pass
+
 
 
 class Start:
@@ -58,3 +78,8 @@ class Start:
         current_time = get_time()
         if current_time - self.last_time > 3.0:  # 25초가 지난 후에 나타남
             self.y += 10
+
+    def reset(self):
+        self.y = Snow_HEIGHT - 80
+        self.Count = 3
+        self.last_time = get_time()

@@ -21,7 +21,7 @@ class BigTree:
     def update(self):
         current_time = get_time()
         if self.dir == 0:
-            if current_time - self.last_time > 3.0:  # 25초가 지난 후에 나타남
+            if current_time - self.last_time > 3.0:  # 3초 후 증가
                 self.y += self.speed
             # self.last_time = current_time
             if self.y > self.screen_height:
@@ -37,3 +37,11 @@ class BigTree:
     def handle_collision(self, groub, other):
         if groub == 'man:bigtree':
             self.y -= self.speed / 2
+
+    def reset(self):
+        self.x, self.y = random.randint(50, 750), random.randint(50, 750)
+        self.moving_up = False
+        self.last_time = get_time()
+        self.dir = 0
+
+

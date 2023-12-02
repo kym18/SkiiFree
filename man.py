@@ -36,7 +36,7 @@ class Man:
         return self.game_start
     def draw(self):
         self.state_machine.draw()
-        draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
+        # draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
 
 
     def update(self):
@@ -67,6 +67,18 @@ class Man:
             self.dir = 9
         elif groub == 'man:monster':
             self. dir = 5 #없애버리기
+
+    def reset(self):
+        self.x, self.y = Snow_WIDTH // 2 - 10, Snow_HEIGHT - 130
+        self.frame = 0
+        self.speed = 10
+        self.dir = 0
+        self.opCount = 0
+        self.optime = 0
+        self.state_machine = StateMachine(self)
+        self.state_machine.start()
+        self.game_start = False
+        self.last_time = get_time()
 
 
 class Idle:  #내려가기

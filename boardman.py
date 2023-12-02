@@ -52,3 +52,12 @@ class boardMan:
         elif groub == 'man:Bboy':
             self.action = 1
             print('보드맨 사람 ㅠㅠ')
+
+    def reset(self):
+        self.x, self.y = random.randint(300, 500), -100
+        self.frame = 0
+        self.speed = 5
+        self.last_time = get_time()
+        self.action = 0
+        self.opCount = 0
+        self.optime = 0
