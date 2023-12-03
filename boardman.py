@@ -14,7 +14,7 @@ class boardMan:
         self.optime = 0;  # 넘어지는 시간
 
     def draw(self):
-        draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
+        # draw_rectangle(*self.get_bb())  # 튜플을 풀어해쳐서 분리해서 인자로 제공
         if self.action == 0:
             self.image.clip_draw(self.frame * 70 + 4, 0, 73, 100, self.x, self.y, 50, 60)
         elif self.action == 1:
